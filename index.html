@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Estimators and estimates</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/theme/solarized.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="mystyle.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <link href="index_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="index_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section class="slide level2">
+
+<section>
+<h1>
+Estimators and estimates
+</h1>
+<p>Based on Stock and Watson, ch. 3</p>
+<p><br></p>
+<h2>
+<a href="mailto:jesper.bagger@rhul.ac.uk">Jesper Bagger</a>
+</h2>
+<h3>
+EC2203 | Royal Holloway | 2020/21
+</h3>
+</section>
+</section>
+<section><section id="estimators-and-estimates" class="title-slide slide level1"><h1>Estimators and estimates</h1></section><section id="the-estimation-problem" class="slide level2">
+<h2>The estimation problem</h2>
+<ul>
+<li><p>Let <span class="math inline">\(Y\)</span> be a random variable with unknown population distribution; want to learn <span class="math inline">\(\mathrm{E}(Y) = \mu_Y\)</span></p></li>
+<li><p>Obtain an i.i.d. sample with <span class="math inline">\(n\)</span> observations on <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math display">\[\{ Y_i; i=1,...,n \}\]</span></p></li>
+<li><p><strong>Estimation problem</strong>: what can be learned about <span class="math inline">\(\mu_Y\)</span> from the sample <span class="math inline">\(\{ Y_i; i=1,...,n \}\)</span>?</p></li>
+</ul>
+</section><section id="estimators-and-estimates-1" class="slide level2">
+<h2>Estimators and estimates</h2>
+<ul>
+<li><p>An <strong>estimator</strong> of <span class="math inline">\(\mu_Y\)</span> is a function of the sample to be drawn at random from the population</p>
+<p>So, an estimator is a random variable with statistical properties that we can study</p></li>
+<li><p>The sample average is an intuitive estimator of <span class="math inline">\(\mu_Y\)</span>:</p>
+<p><span class="math display">\[\hat{\mu}_Y = \overline{Y} = \frac{1}{n}\sum_{i=1}^n Y_i\]</span></p></li>
+<li><p>An <strong>estimate</strong> is a number; it is the numerical value of the estimator obtained from a specific sample</p></li>
+</ul>
+</section></section>
+<section><section id="estimator-properties" class="title-slide slide level1"><h1>Estimator properties</h1></section><section id="estimator-properties-1" class="slide level2">
+<h2>Estimator properties</h2>
+<ul>
+<li><p>Unbiasedness</p></li>
+<li><p>Consistency</p></li>
+<li><p>Efficiency</p></li>
+</ul>
+</section><section id="unbiasedness" class="slide level2">
+<h2>Unbiasedness</h2>
+<ul>
+<li><p>Evaluate <span class="math inline">\(\hat{\mu}_Y\)</span> many (<span class="math inline">\(\rightarrow \infty\)</span>) times on different size-<span class="math inline">\(n\)</span> i.i.d. samples, producing many estimates with average <span class="math inline">\(\mathrm{E}(\hat{\mu}_{Y})\)</span></p>
+<div class="box">
+<p><span class="math inline">\(\hat{\mu}_Y\)</span> is an <strong>unbiased estimator</strong> of <span class="math inline">\(\mu_Y\)</span> if <span class="math inline">\(\mathrm{E}(\hat{\mu}_{Y}) = \mu_Y\)</span></p>
+</div></li>
+<li><p>An estimator of <span class="math inline">\(\mu_Y\)</span> is unbiased if, on average, when applied to different samples, it equals <span class="math inline">\(\mu_Y\)</span></p></li>
+</ul>
+</section><section id="consistency" class="slide level2">
+<h2>Consistency</h2>
+<ul>
+<li><p>An estimator of <span class="math inline">\(\mu_Y\)</span>, <span class="math inline">\(\hat{\mu}_Y\)</span>, is consistent if <span class="math inline">\(\hat{\mu}_Y\)</span>’s sampling distribution collapses on <span class="math inline">\(\mu_Y\)</span></p>
+<div class="box">
+<p><span class="math inline">\(\hat{\mu}_{Y}\)</span> is a <strong>consistent estimator</strong> of <span class="math inline">\(\mu_Y\)</span> if <span class="math inline">\(\hat{\mu}_{Y} - \mu_Y \overset{p}{\rightarrow} 0\)</span></p>
+</div></li>
+<li><p>Consistency is a <strong>minimum requirement</strong>: when <span class="math inline">\(n \rightarrow \infty\)</span>, the estimator should provide the right answer to be any good</p></li>
+</ul>
+</section><section id="estimator-variance-and-efficiency" class="slide level2">
+<h2>Estimator variance and efficiency</h2>
+<ul>
+<li><p>Let <span class="math inline">\(\mathrm{var}(\hat{\mu}_{Y})\)</span> be the variance of the estimator <span class="math inline">\(\hat{\mu}_{Y}\)</span></p></li>
+<li><p>Suppose another estimator <span class="math inline">\(\tilde{\mu}_{Y}\)</span> of <span class="math inline">\(\mu_Y\)</span> is available, and suppose <span class="math inline">\(\tilde{\mu}_{Y}\)</span> has variance <span class="math inline">\(\mathrm{var}(\tilde{\mu}_{Y})\)</span></p>
+<div class="box">
+<p>Suppose <span class="math inline">\(\hat{\mu}_{Y}\)</span> and <span class="math inline">\(\tilde{\mu}_{Y}\)</span> are both unbiased estimators; <span class="math inline">\(\hat{\mu}_{Y}\)</span> is more <strong>efficient</strong> than <span class="math inline">\(\tilde{\mu}_{Y}\)</span> if <span class="math inline">\(\mathrm{var}(\hat{\mu}_{Y}) &lt; \mathrm{var}(\tilde{\mu}_{Y})\)</span></p>
+</div></li>
+<li><p>More efficient estimators are preferable because they give more precise answers</p></li>
+</ul>
+<!-- - Intuition: $\hat{\mu}_{Y}$ uses the information in the sample more efficiently than $\tilde{\mu}_{Y}$ to obtain greater precision. -->
+<!-- # The best linear unbiased estimator -->
+<!-- ## Linear unbiased estimators -->
+<!-- - Consider estimators of $\mu_Y$ on the form  -->
+<!--   $$\hat{\mu}_Y = \sum_{i=1}^n \omega_i Y_i,$$ -->
+<!--   where $\omega_i$ are non-random weights. -->
+<!-- - $\hat{\mu}_Y$ is a **linear estimator** because it is a linear combinations of the sample elements $\{Y_i;i=1,...,n\}$ -->
+<!-- - $\hat{\mu}_Y$ is an **unbiased** estimator of $\mu_Y$ if $\sum_{i=1}^n \omega_i = 1$ -->
+<!-- ## The best linear unbiased estimator -->
+<!-- <div class="box"> -->
+<!--   Let $\hat{\mu}_Y = \sum_{i=1}^n \omega_i Y_i$, where $\sum_{i=1}^n \omega_i = 1$ so $\hat{\mu}_Y$ is an unbiased estimator of $\mu_Y$. Then, $\mathrm{var}(\overline{Y}) < \mathrm{var}(\hat{\mu}_Y)$ unless $\hat{\mu}_Y = \overline{Y}$.  -->
+<!--   We say that $\hat{\mu}_Y = \overline{Y}$ is the **Best Linear Unbiased Estimator** of $\mu_Y$; for short: $\overline{Y}$ is **BLUE**. -->
+<!-- </div> -->
+<!-- # The least squares estimator -->
+<!-- ## Best fit -->
+<!-- - Which estimator $\hat{\mu}_Y$ of $\mu_Y$ provides the best **fit** to the $n$ data points in the sample $\{Y_i;n=1,2,...,n\}$? -->
+<!-- - Let $Y_i - \hat{\mu}_Y$ be the **residual** for observation $i$; different estimators $\hat{\mu}_Y$ produces different residuals -->
+<!-- - A good fit produces small residuals; effectively, puts the estimate of $\mu_Y$ "close" to the data -->
+<!-- ## The least squares estimator -->
+<!-- <div class="box"> -->
+<!--   Pick the $\hat{\mu}_Y$ that minimizes the **sum of squared residuals** -->
+<!--   $$\hat{\mu}_Y = \arg \min_{\mu} \sum_{i=1}^n (Y_i - \mu)^2.$$ -->
+<!--   The resulting **least squares** estimator is -->
+<!--   $$\hat{\mu}_Y = \overline{Y}$$ -->
+<!--   </div> -->
+<!-- ## The least squares estimator is BLUE -->
+<!-- - $\hat{\mu}_Y = \overline{Y}$ is the intuitive choice of estimator of $\mu_Y$ -->
+<!-- - $\hat{\mu}_Y = \overline{Y}$ is the efficient linear estimator of $\mu_Y$ -->
+<!-- - $\hat{\mu}_Y = \overline{Y}$ is the least squares estimator of $\mu_Y$ -->
+<!-- ## What is the role of random sampling? -->
+<!-- - The role of random sampling has not been explicitly considered---but it is important -->
+<!-- - Failure to sample at random in the **population of interest** may result in biased estimators -->
+<!-- - For example, to estimate the unemployment rate, the population of interest is, say, all 15-70 year olds -->
+<!-- - Sampling individuals on a university campus, our unemployment rate estimator will be biased. -->
+<!--   The reason? Not every 15-70 year old is equally likely to be sampled when sampling on campus  -->
+</section></section>
+<section><section id="summary" class="title-slide slide level1"><h1>Summary</h1></section><section id="summary-1" class="slide level2">
+<h2>Summary</h2>
+<ul>
+<li><p>An estimator of <span class="math inline">\(\mu_Y\)</span> is a function of the sample to be drawn at random from the population; it is a random variable.</p></li>
+<li><p>An estimate is a number; it is the numerical value of the estimator obtained from a specific sample</p></li>
+<li><p>An estimator of <span class="math inline">\(\mu_Y\)</span> is unbiased if, on average, when applied to different samples, it equals <span class="math inline">\(\mu_Y\)</span></p></li>
+<li><p>An estimator of <span class="math inline">\(\mu_Y\)</span> is consistent if its sampling distribution collapses on <span class="math inline">\(\mu_Y\)</span></p></li>
+<li><p>A more efficient estimator has smaller variance</p></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="index_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="index_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'none', // none/fade/slide/convex/concave/zoom
+
+        menu: {
+          numbers: true,
+          custom: false,
+          themes: false,
+          transitions: false
+        },
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'index_files/reveal.js-3.3.0.1/plugin/menu/menu.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

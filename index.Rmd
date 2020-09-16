@@ -1,0 +1,193 @@
+---
+pagetitle: Estimators and estimates
+output: 
+  revealjs::revealjs_presentation:
+    incremental: false
+    theme: solarized
+    self_contained: false
+    # reveal_plugins: ["menu","notes","chalkboard"]
+    reveal_plugins: ["menu"]
+    highlight: pygments
+    center: true
+    transition: none
+    background_transition: none 
+    reveal_options:
+      # chalkboard:
+      #   theme: whiteboard
+      #   toggleNotesButton: true
+      #   toggleChalkboardButton: true
+      menu:
+        numbers: true
+      slideNumber: true
+      previewLinks: false
+    fig_caption: true
+    css: mystyle.css
+    
+--- 
+
+<section>
+
+<h1>Estimators and estimates</h1>
+
+Based on Stock and Watson, ch. 3
+
+<br>
+
+<h2>[Jesper Bagger](mailto:jesper.bagger@rhul.ac.uk)</h2>
+
+<h3>EC2203 | Royal Holloway | 2020/21</h3>
+
+</section>
+
+# Estimators and estimates
+
+## The estimation problem
+
+- Let $Y$ be a random variable with unknown population distribution; want to learn $\mathrm{E}(Y) = \mu_Y$
+
+- Obtain an i.i.d. sample with $n$ observations on $Y$: 
+
+  $$\{ Y_i; i=1,...,n \}$$
+
+- **Estimation problem**: what can be learned about $\mu_Y$ from the sample $\{ Y_i; i=1,...,n \}$?
+
+## Estimators and estimates
+
+- An **estimator** of $\mu_Y$ is a function of the sample to be drawn at random from the population
+
+  So, an estimator is a random variable with statistical properties that we can study
+
+- The sample average is an intuitive estimator of $\mu_Y$: 
+
+  $$\hat{\mu}_Y = \overline{Y} = \frac{1}{n}\sum_{i=1}^n Y_i$$
+
+- An **estimate** is a number; it is the numerical value of the estimator obtained from a specific sample
+
+# Estimator properties
+
+## Estimator properties
+
+- Unbiasedness
+  
+- Consistency
+  
+- Efficiency
+
+
+## Unbiasedness
+
+- Evaluate $\hat{\mu}_Y$ many ($\rightarrow \infty$) times on different size-$n$ i.i.d. samples, producing many estimates with average $\mathrm{E}(\hat{\mu}_{Y})$
+
+  <div class="box"> 
+  $\hat{\mu}_Y$ is an **unbiased estimator** of $\mu_Y$ if $\mathrm{E}(\hat{\mu}_{Y}) = \mu_Y$
+  </div>
+  
+- An estimator of $\mu_Y$ is unbiased if, on average, when applied to different samples, it equals $\mu_Y$
+
+## Consistency
+
+- An estimator of $\mu_Y$, $\hat{\mu}_Y$, is consistent if $\hat{\mu}_Y$'s sampling distribution collapses on $\mu_Y$
+
+  <div class="box">
+  $\hat{\mu}_{Y}$ is a **consistent estimator** of $\mu_Y$ if $\hat{\mu}_{Y} - \mu_Y \overset{p}{\rightarrow} 0$
+  </div>
+  
+- Consistency is a **minimum requirement**: when $n \rightarrow \infty$, the estimator should provide the right answer to be any good
+  
+
+## Estimator variance and efficiency
+
+- Let $\mathrm{var}(\hat{\mu}_{Y})$ be the variance of the estimator $\hat{\mu}_{Y}$
+
+- Suppose another estimator $\tilde{\mu}_{Y}$ of $\mu_Y$ is available, and suppose $\tilde{\mu}_{Y}$ has variance $\mathrm{var}(\tilde{\mu}_{Y})$
+
+  <div class="box">
+  Suppose $\hat{\mu}_{Y}$ and $\tilde{\mu}_{Y}$ are both unbiased estimators; $\hat{\mu}_{Y}$ is more **efficient** than $\tilde{\mu}_{Y}$ if $\mathrm{var}(\hat{\mu}_{Y}) < \mathrm{var}(\tilde{\mu}_{Y})$
+  </div>
+  
+- More efficient estimators are preferable because they give more precise answers
+
+<!-- - Intuition: $\hat{\mu}_{Y}$ uses the information in the sample more efficiently than $\tilde{\mu}_{Y}$ to obtain greater precision. -->
+
+<!-- # The best linear unbiased estimator -->
+
+<!-- ## Linear unbiased estimators -->
+
+<!-- - Consider estimators of $\mu_Y$ on the form  -->
+
+<!--   $$\hat{\mu}_Y = \sum_{i=1}^n \omega_i Y_i,$$ -->
+
+<!--   where $\omega_i$ are non-random weights. -->
+
+<!-- - $\hat{\mu}_Y$ is a **linear estimator** because it is a linear combinations of the sample elements $\{Y_i;i=1,...,n\}$ -->
+
+<!-- - $\hat{\mu}_Y$ is an **unbiased** estimator of $\mu_Y$ if $\sum_{i=1}^n \omega_i = 1$ -->
+
+<!-- ## The best linear unbiased estimator -->
+
+<!-- <div class="box"> -->
+<!--   Let $\hat{\mu}_Y = \sum_{i=1}^n \omega_i Y_i$, where $\sum_{i=1}^n \omega_i = 1$ so $\hat{\mu}_Y$ is an unbiased estimator of $\mu_Y$. Then, $\mathrm{var}(\overline{Y}) < \mathrm{var}(\hat{\mu}_Y)$ unless $\hat{\mu}_Y = \overline{Y}$.  -->
+
+<!--   We say that $\hat{\mu}_Y = \overline{Y}$ is the **Best Linear Unbiased Estimator** of $\mu_Y$; for short: $\overline{Y}$ is **BLUE**. -->
+<!-- </div> -->
+
+<!-- # The least squares estimator -->
+
+<!-- ## Best fit -->
+
+<!-- - Which estimator $\hat{\mu}_Y$ of $\mu_Y$ provides the best **fit** to the $n$ data points in the sample $\{Y_i;n=1,2,...,n\}$? -->
+
+<!-- - Let $Y_i - \hat{\mu}_Y$ be the **residual** for observation $i$; different estimators $\hat{\mu}_Y$ produces different residuals -->
+
+<!-- - A good fit produces small residuals; effectively, puts the estimate of $\mu_Y$ "close" to the data -->
+
+<!-- ## The least squares estimator -->
+
+<!-- <div class="box"> -->
+
+<!--   Pick the $\hat{\mu}_Y$ that minimizes the **sum of squared residuals** -->
+
+<!--   $$\hat{\mu}_Y = \arg \min_{\mu} \sum_{i=1}^n (Y_i - \mu)^2.$$ -->
+
+<!--   The resulting **least squares** estimator is -->
+
+<!--   $$\hat{\mu}_Y = \overline{Y}$$ -->
+
+<!--   </div> -->
+
+<!-- ## The least squares estimator is BLUE -->
+
+<!-- - $\hat{\mu}_Y = \overline{Y}$ is the intuitive choice of estimator of $\mu_Y$ -->
+
+<!-- - $\hat{\mu}_Y = \overline{Y}$ is the efficient linear estimator of $\mu_Y$ -->
+
+<!-- - $\hat{\mu}_Y = \overline{Y}$ is the least squares estimator of $\mu_Y$ -->
+
+
+<!-- ## What is the role of random sampling? -->
+
+<!-- - The role of random sampling has not been explicitly considered---but it is important -->
+
+<!-- - Failure to sample at random in the **population of interest** may result in biased estimators -->
+
+<!-- - For example, to estimate the unemployment rate, the population of interest is, say, all 15-70 year olds -->
+
+<!-- - Sampling individuals on a university campus, our unemployment rate estimator will be biased. -->
+
+<!--   The reason? Not every 15-70 year old is equally likely to be sampled when sampling on campus  -->
+
+
+
+# Summary
+
+## Summary
+
+- An estimator of $\mu_Y$ is a function of the sample to be drawn at random from the population; it is a random variable.
+
+- An estimate is a number; it is the numerical value of the estimator obtained from a specific sample
+
+- An estimator of $\mu_Y$ is unbiased if, on average, when applied to different samples, it equals $\mu_Y$
+
+- An estimator of $\mu_Y$ is consistent if its sampling distribution collapses on $\mu_Y$
+
+- A more efficient estimator has smaller variance
