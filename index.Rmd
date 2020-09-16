@@ -61,7 +61,7 @@ Based on Stock and Watson, ch. 3
 
   $$\hat{\mu}_Y = \overline{Y} = \frac{1}{n}\sum_{i=1}^n Y_i$$
 
-- An **estimate**  is the value of the estimator from a specific sample
+- An **estimate**  is the numerical value produced by the estimator when applied to a specific sample
 
 # Estimator properties
 
