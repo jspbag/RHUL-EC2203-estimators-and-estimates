@@ -53,15 +53,15 @@ Based on Stock and Watson, ch. 3
 
 ## Estimators and estimates
 
-- An **estimator** of $\mu_Y$ is a function of the sample to be drawn at random from the population
+- An **estimator** of $\mu_Y$ is a function of the random sample.
 
-  So, an estimator is a random variable with statistical properties that we can study
+  This means that an estimator is a random variable with a sampling distribution
 
 - The sample average is an intuitive estimator of $\mu_Y$: 
 
   $$\hat{\mu}_Y = \overline{Y} = \frac{1}{n}\sum_{i=1}^n Y_i$$
 
-- An **estimate** is a number; it is the numerical value of the estimator obtained from a specific sample
+- An **estimate**  is the value of the estimator from a specific sample
 
 # Estimator properties
 
@@ -76,13 +76,14 @@ Based on Stock and Watson, ch. 3
 
 ## Unbiasedness
 
-- Evaluate $\hat{\mu}_Y$ many ($\rightarrow \infty$) times on different size-$n$ i.i.d. samples, producing many estimates with average $\mathrm{E}(\hat{\mu}_{Y})$
+- Unbiasedness has to do with the **expected value** of the estimator taken with respect to its sampling distribution
+
+- An estimator of $\mu_Y$ is unbiased if, on average, when applied to different samples, it equals $\mu_Y$
 
   <div class="box"> 
   $\hat{\mu}_Y$ is an **unbiased estimator** of $\mu_Y$ if $\mathrm{E}(\hat{\mu}_{Y}) = \mu_Y$
   </div>
   
-- An estimator of $\mu_Y$ is unbiased if, on average, when applied to different samples, it equals $\mu_Y$
 
 ## Consistency
 
