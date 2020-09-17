@@ -98,8 +98,6 @@ Based on Stock and Watson, ch. 3
 
 ## Estimator variance and efficiency
 
-- Let $\mathrm{var}(\hat{\mu}_{Y})$ be the variance of the estimator $\hat{\mu}_{Y}$
-
 - Suppose another estimator $\tilde{\mu}_{Y}$ of $\mu_Y$ is available, and suppose $\tilde{\mu}_{Y}$ has variance $\mathrm{var}(\tilde{\mu}_{Y})$
 
   <div class="box">
