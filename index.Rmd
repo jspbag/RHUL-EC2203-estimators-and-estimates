@@ -98,7 +98,7 @@ Based on Stock and Watson, ch. 3
 
 ## Estimator variance and efficiency
 
-- Suppose another estimator $\tilde{\mu}_{Y}$ of $\mu_Y$ is available, and suppose $\tilde{\mu}_{Y}$ has variance $\mathrm{var}(\tilde{\mu}_{Y})$
+- Suppose another estimator $\tilde{\mu}_{Y}$ of $\mu_Y$ is available, in addition to $\hat{\mu}_{Y}$
 
   <div class="box">
   Suppose $\hat{\mu}_{Y}$ and $\tilde{\mu}_{Y}$ are both unbiased estimators; $\hat{\mu}_{Y}$ is more **efficient** than $\tilde{\mu}_{Y}$ if $\mathrm{var}(\hat{\mu}_{Y}) < \mathrm{var}(\tilde{\mu}_{Y})$
